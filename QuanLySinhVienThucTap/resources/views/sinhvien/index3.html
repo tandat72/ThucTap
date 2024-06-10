@@ -1,0 +1,64 @@
+<html>
+<head>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="btnDeleteMultiple">Xóa nhiều</button>
+  <button id="btnDelete">Xóa</button>
+
+  <ul id="sinhvienList">
+    <li>Sinh viên 1</li>
+    <li>Sinh viên 2</li>
+    <li>Sinh viên 3</li>
+    <li>Sinh viên 4</li>
+    <li>Sinh viên 5</li>
+  </ul>
+
+  <script>
+    var btnDeleteMultiple = document.getElementById("btnDeleteMultiple");
+    var sinhvienList = document.getElementById("sinhvienList");
+    var isCheckboxShown = false;
+
+    btnDeleteMultiple.addEventListener("click", function() {
+      if (!isCheckboxShown) {
+        var lis = sinhvienList.getElementsByTagName("li");
+        for (var i = 0; i < lis.length; i++) {
+          var checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.className = "checkbox";
+          lis[i].insertBefore(checkbox, lis[i].firstChild);
+        }
+        isCheckboxShown = true;
+      } else {
+        var checkboxes = sinhvienList.querySelectorAll(".checkbox");
+        for (var i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].style.display = "none";
+        }
+        isCheckboxShown = false;
+      }
+    });
+
+    document.getElementById("btnDelete").addEventListener("click", function() {
+      var checkboxes = sinhvienList.querySelectorAll(".checkbox");
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          checkboxes[i].parentNode.remove();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
